@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -exu -o pipefail
+
+apt-get update
+apt-get install -y tinyproxy
+sed -i 's#Allow 127.0.0.1#Allow 0.0.0.0/0#g' /etc/tinyproxy.conf
+sed -i 's#/var/log/tinyproxy/tinyproxy.log#/tmp/tinyproxy.log#g' /etc/tinyproxy.conf
+sed -i 's#/var/run/tinyproxy/tinyproxy.pid#/tmp/tinyproxy.pid#g' /etc/tinyproxy.conf
+sed -i 's#nobody#vcap#g' /etc/tinyproxy.conf
+sed -i 's#nogroup#vcap#g' /etc/tinyproxy.conf
+service tinyproxy restart

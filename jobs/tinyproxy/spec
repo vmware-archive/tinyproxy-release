@@ -1,0 +1,10 @@
+---
+name: tinyproxy
+
+templates:
+  pre-start.erb: bin/pre-start
+  tinyproxy_ctl.erb: bin/tinyproxy_ctl
+
+packages: []
+
+properties: {}

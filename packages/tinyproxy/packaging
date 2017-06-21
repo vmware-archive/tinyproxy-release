@@ -1,8 +1,0 @@
-set -e
-
-tar -xzf tinyproxy-1.8.4.tar.gz
-cd tinyproxy-1.8.4
-
-./configure --prefix "${BOSH_INSTALL_TARGET}"
-make
-make install

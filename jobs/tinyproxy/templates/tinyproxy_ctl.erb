@@ -1,0 +1,33 @@
+#!/bin/bash -exu
+
+SCRIPT_NAME=$(basename $0)
+JOB_DIR=/var/vcap/jobs/tinyproxy
+LOG_DIR=/var/vcap/sys/log/tinyproxy
+
+exec > >(tee -a >(logger -p user.info -t vcap.${SCRIPT_NAME}.stdout) | awk -W interactive '{ system("echo -n [$(date +\"%Y-%m-%d %H:%M:%S%z\")]"); print " " $0 }' >> ${LOG_DIR}/${SCRIPT_NAME}.log)
+exec 2> >(tee -a >(logger -p user.error -t vcap.${SCRIPT_NAME}.stderr) | awk -W interactive '{ system("echo -n [$(date +\"%Y-%m-%d %H:%M:%S%z\")]"); print " " $0 }' >> ${LOG_DIR}/${SCRIPT_NAME}.err.log)
+
+function main() {
+  case $1 in
+
+    start)
+      echo "start: no-op"
+
+      ;;
+
+    stop)
+      echo "stop: no-op"
+
+
+      ;;
+
+    *)
+
+      echo "Usage: tinyproxy_ctl {start|stop}"
+
+      ;;
+
+  esac
+}
+
+main "${@}"
